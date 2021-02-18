@@ -11,26 +11,23 @@ const renderShows = (shows) => {
     const resultsDiv = document.getElementById('shows-results');
     resultsDiv.innerHTML = '';
 
+    console.log (shows);
+
     shows.forEach((show) => {
         const li = document.createElement('li')
-        li.innerHTML = show.score + ' - ' + show.show.name;
-
-        resultsDiv.appendChild(li);
+        li.innerHTML = `${show.score} - ${show.show.name}`;
     })
 }
 
 window.onload = () => {
     const buttonElement = document.getElementById('shows-submit');
     
-    buttonElement.onclick = async (evt) => {
+    buttonElement.onclick =  () => {
         const inputELement = document.getElementById('search-tv-maze');
         const search = inputELement.value;
         
         console.log('search///', search);
     
-        const showResults = await fetchTvShows(search);
-    
-        console.log('results...', showResults)
-        renderShows(showResults);
+        fetchTvShows(search).then(showResults => renderShows(showResults));
     }
 }
